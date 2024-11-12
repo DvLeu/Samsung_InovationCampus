@@ -1,62 +1,62 @@
-import numpy as np 
+import numpy as np
+import matplotlib.pyplot as plt
 
-#Crear matriz de calificaciones
+# Crear matriz de calificaciones
 calificaciones = np.array([
-    [7,8,6,5],
-    [9,7,8,6],
-    [6,5,9,7],
-    [8,6,7,8],
-    [5,4,6,5]
+    [7, 8, 6, 5],  # Estudiante 1
+    [9, 7, 8, 6],  # Estudiante 2
+    [6, 5, 9, 7],  # Estudiante 3
+    [8, 6, 7, 8],  # Estudiante 4
+    [5, 4, 6, 5]   # Estudiante 5
 ])
-#Imprimir la matriz de califaciones
-print(f"Matriz de calificaciones : \n{calificaciones}")
 
-#Calcular estadisticas basicas :
+
+# Imprimir la matriz de calificaciones
+print("Matriz de Calificaciones:")
+print(calificaciones)
+print("\n")
+
+# Función para formatear la impresión
+def imprimir_resumen(titulo, valores, etiquetas):
+    print(f"{titulo}:")
+    for etiqueta, valor in zip(etiquetas, valores):
+        print(f"  {etiqueta}: {valor:.2f}")
+    print()
+
+# Calcular estadísticas básicas
 media_asignatura = np.mean(calificaciones, axis=0)
-print(f"Media por asignatura : \n{media_asignatura}")
-
-#Varianza por estudiante 
 varianza_estudiante = np.var(calificaciones, axis=1)
-print(f"Varianza por estudiante : \n{varianza_estudiante}")
-
-#Desviacion estandar de la matriz completa : 
 desviacion_total = np.std(calificaciones)
-print(f"Desviacion estandar de la matriz completa : \n{desviacion_total}")
 
-#Obtener los valores unicos y ordenarlos 
-valores_unicos = np.unique(calificaciones)
-valores_unicos_ordenados = sorted(set(valores_unicos))
-print(f"\nValores unicos ordenados : \n{valores_unicos_ordenados}")
+# Imprimir estadísticas básicas
+imprimir_resumen("Media por asignatura", media_asignatura, ["Asignatura 1", "Asignatura 2", "Asignatura 3", "Asignatura 4"])
+imprimir_resumen("Varianza por estudiante", varianza_estudiante, [f"Estudiante {i+1}" for i in range(calificaciones.shape[0])])
+print(f"Desviación estándar de la matriz completa: {desviacion_total:.2f}\n")
 
+# Obtener y ordenar valores únicos
+valores_unicos = sorted(set(np.unique(calificaciones)))
+print(f"Valores únicos ordenados: {valores_unicos}\n")
 
-#Comienza codigo con los filtrados por calificaciones
-
-#Filtrar estudiantes con calificaciones mayores a 6 
+# Filtrar estudiantes con calificaciones mayores a 6 en todas las asignaturas
 estudiantes_mayores_6 = calificaciones[np.all(calificaciones >= 6, axis=1)]
-print(f"Estudiantes con calificaciones mayores a 6 en todas las asignaturas :\n {estudiantes_mayores_6}")
+print("Estudiantes con calificaciones mayores a 6 en todas las asignaturas:")
+print(estudiantes_mayores_6)
+print("\n")
 
-# Modificar la matriz reemplazando valores menores o iguales a 6 por 10
+# Modificar matriz reemplazando calificaciones <= 6 por 10
 matriz_modificada = np.where(calificaciones <= 6, 10, calificaciones)
-print(f"Matriz remplazado donde calificaciones menores o iguales a 6 cambian a 10 : {matriz_modificada}")
+print("Matriz modificada (calificaciones <= 6 reemplazadas por 10):")
+print(matriz_modificada)
+print("\n")
 
-
-# Calcular estadísticas por asignatura
-# Máximo, mínimo y mediana por asignatura
+# Calcular estadísticas por asignatura: máximo, mínimo y mediana
 max_por_asignatura = np.max(calificaciones, axis=0)
 min_por_asignatura = np.min(calificaciones, axis=0)
 mediana_por_asignatura = np.median(calificaciones, axis=0)
 
-print("\nMáximo por asignatura:", max_por_asignatura)
-print("Mínimo por asignatura:", min_por_asignatura)
-print("Mediana por asignatura:", mediana_por_asignatura)
+# Imprimir estadísticas por asignatura
+imprimir_resumen("Máximo por asignatura", max_por_asignatura, ["Asignatura 1", "Asignatura 2", "Asignatura 3", "Asignatura 4"])
+imprimir_resumen("Mínimo por asignatura", min_por_asignatura, ["Asignatura 1", "Asignatura 2", "Asignatura 3", "Asignatura 4"])
+imprimir_resumen("Mediana por asignatura", mediana_por_asignatura, ["Asignatura 1", "Asignatura 2", "Asignatura 3", "Asignatura 4"])
+asignaturas = ["Asignatura 1", "Asignatura 2", "Asignatura 3", "Asignatura 4"]
 
-# Crear un resumen completo
-print("\nResumen completo por asignatura:")
-for i in range(calificaciones.shape[1]):
-    print(f"Asginatura {i+1}:")
-    print("  Media:", media_asignatura[i])
-    print("  Máximo:", max_por_asignatura[i])
-    print("  Mínimo:", min_por_asignatura[i])
-    print("  Mediana:", mediana_por_asignatura[i])
-    print("  Valores únicos:", np.unique(calificaciones[:, i]))
-    print()
