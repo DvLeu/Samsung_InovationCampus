@@ -20,7 +20,7 @@ for periodo in periodos:
 ax.set_xlabel("Año")
 ax.set_title("Periodos de Neutralidad de México en el Siglo XX y XXI")
 ax.set_xlim(1900, 2030)
-ax.set_xticks(range(1900, 2031, 10))  # Ajuste del eje X con intervalos de 10 en 10
+ax.set_xticks(range(1900, 2031, 5))  # Ajuste del eje X con intervalos de 10 en 10
 
 # Mostrar la gráfica
 plt.show()
